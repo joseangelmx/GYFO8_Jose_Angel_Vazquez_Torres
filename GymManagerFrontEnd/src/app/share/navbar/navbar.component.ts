@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+  hasSession=environment.hasSession;
+  isCollapsed = true;
 
+toggleNavbar() {
+  this.isCollapsed = !this.isCollapsed;
+}
 }

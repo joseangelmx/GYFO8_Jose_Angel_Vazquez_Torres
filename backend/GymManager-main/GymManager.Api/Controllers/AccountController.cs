@@ -56,7 +56,7 @@ namespace GymManager.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginDto request)
         {
-            var user = await _userManager.FindByNameAsync(request.UserName);
+            var user = await _userManager.FindByNameAsync(request.Email);
 
             if (user is null || !await _userManager.CheckPasswordAsync(user, request.Password))
             {

@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/material.module';
 import { InitLayoutComponent } from './share/init-layout/init-layout.component';
 import { AdminLayoutComponent } from './share/admin-layout/admin-layout.component';
 import { NavbarComponent } from './share/navbar/navbar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavbarComponent } from './share/navbar/navbar.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

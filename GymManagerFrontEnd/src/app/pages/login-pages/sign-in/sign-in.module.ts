@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SignInRoutingModule } from './sign-in-routing.module';
 import { SignInComponent } from './sign-in.component';
+import { LoginFormModule } from 'src/app/components/login-form/login-form.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { SignInComponent } from './sign-in.component';
   ],
   imports: [
     CommonModule,
-    SignInRoutingModule
+    SignInRoutingModule,
+    LoginFormModule
   ]
 })
 export class SignInModule { }

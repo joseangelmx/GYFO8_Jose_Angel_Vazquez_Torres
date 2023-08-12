@@ -1,1 +1,22 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg bg-primary">
+    <div class="container-fluid">
+        <i class="fa-solid fa-dumbbell fa-2xl"></i>
+      <a class="navbar-brand text-white" href="#">&nbsp; Gym Manager</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"  
+      data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup" [ngClass]="{'collapse': isCollapsed, 'navbar-collapse': true}" >
+        <div class="navbar-nav" *ngIf="!hasSession;else withSession">
+          <a class="nav-link text-white" aria-current="page" [routerLink]="['sign-in']" >Sign in</a>
+          <a class="nav-link text-white" [routerLink]="['sign-up']">Sign up</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <ng-template #withSession>
+    <div class="navbar-nav" *ngIf="!hasSession">
+      <a class="nav-link text-white" aria-current="page" [routerLink]="['sign-in']">Sign out</a>
+    </div>    
+  </ng-template>
+  

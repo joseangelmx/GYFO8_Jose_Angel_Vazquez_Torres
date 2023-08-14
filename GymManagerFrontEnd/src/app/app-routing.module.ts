@@ -5,7 +5,7 @@ import { AdminLayoutComponent } from './share/admin-layout/admin-layout.componen
 import { HasSessionGuard } from './core/guards/has-session.guard';
 
 const routes: Routes = [
-  {path:'',redirectTo:'/sign-in',pathMatch:'full'},
+  {path:'',redirectTo:'/home',pathMatch:'full'},
   {path:'',component:InitLayoutComponent,children:[
     { path: 'sign-in', loadChildren: () => import('./pages/login-pages/sign-in/sign-in.module').then(m => m.SignInModule) },
     { path: 'sign-up', loadChildren: () => import('./pages/login-pages/sign-up/sign-up.module').then(m => m.SignUpModule)},

@@ -1,8 +1,10 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
+import { SwalAlertService } from './swal-alert.service';
 import { User, signIn } from '../interfaces/user';
-import {catchError} from 'rxjs/operators';
 import { ResponseModel } from '../interfaces/response-model';
 
 @Injectable({
@@ -14,27 +16,50 @@ export class AccountService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
-  }
-  constructor(private http:HttpClient) { 
-  }
-  errorHandler(error:HttpErrorResponse){ 
+  };
+
+  constructor(
+    private http: HttpClient,
+    private alertS: SwalAlertService,
+    private cookie: CookieService
+  ) {}
+
+  errorHandler(error: HttpErrorResponse) {
     let errorMessage = `Error Code: ${error.status}`;
-    if(error.status!=200){
-      errorMessage = `${errorMessage} \n message: ${error.error.message}`;
+
+    if (error.status == 404) {
+      this.alertS.errorAlert('Lo sentimos, error detectado, favor de validar más tarde', 'Error inesperado!');
     }
-    if(error.error.hasError && error.status ==200){
-      errorMessage = `message: ${error.error.message}`;
+    if (error.error.hasError && error.status == 200) {
+      errorMessage = `Message: ${error.error.message}`;
     }
-    return throwError(errorMessage);
+
+    return throwError(() => new Error(errorMessage));
   }
-  SignIn(request:signIn) : Observable<ResponseModel<any>>{
-    let url:string = `${this.urlBase}api/account`;
-    return this.http.post<ResponseModel<any>>(url, request, this.httpOptions)
-    .pipe(catchError(this.errorHandler));
+
+  SignIn(request: signIn): Observable<ResponseModel<any>> {
+    const url: string = `${this.urlBase}api/account`;
+    return this.http.post<ResponseModel<any>>(url, request, this.httpOptions).pipe(catchError(this.errorHandler));
   }
-  SignUp(request:User) : Observable<ResponseModel<any>>{
-    let url:string = `${this.urlBase}api/users`;
-    return  this.http.post <ResponseModel<any>>(url, request, this.httpOptions)
-    .pipe(catchError(this.errorHandler));
+
+  SignUp(request: User): Observable<ResponseModel<any>> {
+    const url: string = `${this.urlBase}api/users`;
+    return this.http.post<ResponseModel<any>>(url, request, this.httpOptions).pipe(catchError(this.errorHandler));
+  }
+
+  getProtectedData(): void {
+    const session = this.cookie.get('accessToken');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${session}`
+    });
+
+    this.http.get(`${this.urlBase}api/users`, { headers }).subscribe(
+      (response) => {
+        console.log('Datos protegidos:', response);
+      },
+      (error) => {
+        console.error('Error al obtener datos protegidos', error);
+      }
+    );
   }
 }

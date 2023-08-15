@@ -1,1 +1,28 @@
-<p>users works!</p>
+<div class="body">
+    <div class="container py-5">
+        <div class="row text-center text-white">
+            <div class="col-lg-8 mx-auto">
+                <h1 class="display-4">Gym Manager User Account Panel</h1>
+                <p class="lead mb-0">The Gym Manager User Account Panel provides you with the tools to effortlessly manage passwords and user data for system administrators. From this panel, you can update passwords, modify user information, and ensure account security. Simplify the management of user credentials and details to maintain secure and efficient access to the gym system. Streamline account administration and ensure smooth operations with this dedicated tool.</p>
+
+            </div>
+        </div>
+    </div><!-- End -->
+
+
+    <div class="container">
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 mb-5" *ngFor="let user of users">
+            <div class="bg-white rounded shadow-sm py-4 px-4 text-center">
+                <i class="fa-solid fa-pen-to-square fa-xl d-flex justify-content-start align-items-start"></i>
+                <i class="fa-solid fa-trash fa-xl d-flex justify-content-end align-items-start"></i><br>
+                <img src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"><br>
+              <span class="small text-uppercase text-muted">{{ user.email }}</span><br>
+              <span class="small text-uppercase text-muted">{{ user.phoneNumber }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+</div>

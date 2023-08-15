@@ -47,19 +47,16 @@ export class AccountService {
     return this.http.post<ResponseModel<any>>(url, request, this.httpOptions).pipe(catchError(this.errorHandler));
   }
 
-  getProtectedData(): void {
+  getProtectedUserData(): Observable<ResponseModel<User[]>> {
     const session = this.cookie.get('accessToken');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${session}`
     });
-
-    this.http.get(`${this.urlBase}api/users`, { headers }).subscribe(
-      (response) => {
-        console.log('Datos protegidos:', response);
-      },
-      (error) => {
-        console.error('Error al obtener datos protegidos', error);
-      }
-    );
+  
+    return this.http.get<ResponseModel<User[]>>(`${this.urlBase}api/users`, { headers })
+      .pipe(
+        catchError(this.errorHandler)
+      );
   }
+  
 }

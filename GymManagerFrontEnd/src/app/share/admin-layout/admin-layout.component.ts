@@ -44,11 +44,6 @@ signOut(){
   this.cookie.deleteAll();
   this.router.navigate(['/sign-in']);
 }
-getData(){
-  this.Service.getProtectedData();
-  
-}
-
 
   }
 

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { CitiesRoutingModule } from './cities-routing.module';
 import { CitiesComponent } from './cities.component';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from 'src/material.module';
 
 
 @NgModule({
@@ -11,7 +13,10 @@ import { CitiesComponent } from './cities.component';
   ],
   imports: [
     CommonModule,
-    CitiesRoutingModule
+    CitiesRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MaterialModule
   ]
 })
 export class CitiesModule { }

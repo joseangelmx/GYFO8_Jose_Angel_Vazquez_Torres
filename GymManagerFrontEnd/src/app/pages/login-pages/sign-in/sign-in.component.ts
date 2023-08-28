@@ -20,13 +20,9 @@ export class SignInComponent{
     private cookieService: CookieService
     ) { 
      }
-
-
-
-
     accessToken: any;
   respForm(request:signIn){
-    this.login.SignIn(request).subscribe((response) =>{
+    this.login.signIn(request).subscribe((response) =>{
       if(response.hasError){
         this.alertS.errorAlert('Incorrect username or password, please verify your credentials', 'Error!');
     }
@@ -43,7 +39,6 @@ export class SignInComponent{
       }
     },(error:any)=> {
       this.alertS.errorAlert('Servicio no disponible por el momento, favor de contactar con el administrador','Lo sentimos')
-      console.log(error)
     });  
   }
   cookieCreate(title: string,value: string) {

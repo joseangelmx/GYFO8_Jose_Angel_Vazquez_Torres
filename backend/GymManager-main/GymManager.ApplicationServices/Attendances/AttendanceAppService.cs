@@ -79,5 +79,16 @@ namespace GymManager.ApplicationServices.Attendances
         {
             return _mapper.Map<List<AttendanceDto>>(await _repository.GetAll().ToListAsync());
         }
+
+        public async Task<List<AttendanceDto>> GetAttendanceWithoutExitAsync()
+        {
+            var attendancesWithoutExit = await _repository
+                .GetAll()
+                .Where(a => a.DateOut == DateTime.MinValue) // Filtrar los registros sin fecha de salida
+                .ToListAsync();
+
+            return _mapper.Map<List<AttendanceDto>>(attendancesWithoutExit);
+        }
+
     }
 }

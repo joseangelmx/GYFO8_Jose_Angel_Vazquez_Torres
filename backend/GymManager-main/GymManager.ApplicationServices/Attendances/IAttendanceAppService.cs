@@ -20,5 +20,6 @@ namespace GymManager.ApplicationServices.Attendances
         Task EditAttendanceAsync(int MemberId);
 
         Task<AttendanceDto> GetAttendanceAsync(int attendanceId);
+        Task<List<AttendanceDto>> GetAttendanceWithoutExitAsync();
     }
 }

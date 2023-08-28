@@ -1,1 +1,52 @@
-<p>attendance-today works!</p>
+<div class="background">
+    <div class="container py-5">
+      <div class="row text-center text-white">
+        <div class="col-lg-8 mx-auto">
+          <h1 class="display-4">Attendance Today</h1>
+          <p class="lead mb-0">Show today's activity</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+          <div *ngIf="loading" class="loading-overlay">
+            <div class="loading-spinner"></div>
+          </div>
+          <ng-container *ngIf="attendances.length > 0 && loading===false ; else noRecords">
+            <div class="col-xl-3 col-sm-6 mb-1" *ngFor="let attendance of attendances">
+              <div class="bg-white rounded shadow-sm py-4 px-4 text-center">
+                <img src="https://media.istockphoto.com/id/688921996/vector/gym-building-exterior-outdoor-front-view-facade-showcase-window-concept-flat-style-web-site.jpg?s=612x612&w=0&k=20&c=KYevwpy6S6eLenqvsPrrs4mNvcZtFKCN-lxmClcD94A=" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"><br>
+                <h4 class="apart">Date In</h4>
+                <span class="small text-muted">{{ attendance.dateIn | date:'shortDate' }}</span>
+                <h4 class="apart">Date Out</h4>
+                <ng-container *ngIf="attendance.dateOut === '0001-01-01T00:00:00'; else dateValue">
+                    Has not left the place
+                </ng-container>
+                <ng-template #dateValue>
+                  <span class="small text-muted" *ngIf="!isNoDataDate(attendance.dateOut)">
+                    {{ attendance.dateOut | date:'shortDate' }}
+                  </span>
+                </ng-template>
+                <h4 class="apart">ID Member</h4>
+                <span class="small text-muted">{{ attendance.member.id }}</span>
+                <h4 class="apart">Member Name</h4>
+                <span class="small text-muted">{{ attendance.member.name }}</span>
+                <h4 class="apart">Member Last Name</h4>
+                <span class="small text-muted">{{ attendance.member.lastName }}</span>
+                
+              </div>
+            </div>
+          </ng-container>
+          
+          <ng-template #noRecords>
+            <div class="col-12 text-center">
+              <h1 class="text-white">{{ noRecordsMessage }}</h1>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      
+
+
+</div>

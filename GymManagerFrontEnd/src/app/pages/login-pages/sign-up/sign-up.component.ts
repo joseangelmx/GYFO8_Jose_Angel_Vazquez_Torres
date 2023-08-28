@@ -14,7 +14,6 @@ export class SignUpComponent {
     private router: Router) { }
   respForm(response:User){
     let request = {...response}
-    console.log(request);
-    this.login.SignUp(request).subscribe(()=> this.router.navigate(['/sign-in']));
+    this.login.signUp(request).subscribe(()=> this.router.navigate(['/sign-in']));
   }
 }

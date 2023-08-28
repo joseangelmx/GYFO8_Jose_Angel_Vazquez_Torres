@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { MemberOutRoutingModule } from './member-out-routing.module';
 import { MemberOutComponent } from './member-out.component';
+import { MaterialModule } from 'src/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +13,10 @@ import { MemberOutComponent } from './member-out.component';
   ],
   imports: [
     CommonModule,
-    MemberOutRoutingModule
+    MemberOutRoutingModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MemberOutModule { }

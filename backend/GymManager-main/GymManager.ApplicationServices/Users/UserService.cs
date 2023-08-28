@@ -64,12 +64,11 @@ namespace GymManager.ApplicationServices.Users
         public async Task EditUserAsync(string id, EditUserDto userDto)
         {
             var user = await _userManager.FindByIdAsync(id);
-
             user.PhoneNumber = userDto.PhoneNumber;
-
-
+            user.UserName = userDto.UserName;
+            user.Email = userDto.UserName;
             UserStore<IdentityUser> store = new UserStore<IdentityUser>(_context);
-            /* if (!userDto.Password.Equals("") || !userDto.Equals(null))
+             /*if (!userDto.Password.Equals("") || !userDto.Equals(null))
              {
                  string hashedNewPassword = _userManager.PasswordHasher.HashPassword(user, userDto.Password);
                  await store.SetPasswordHashAsync(user, hashedNewPassword);

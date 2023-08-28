@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AttendanceManagerRoutingModule } from './attendance-manager-routing.module';
 import { AttendanceManagerComponent } from './attendance-manager.component';
+import { MaterialModule } from 'src/material.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { AttendanceManagerComponent } from './attendance-manager.component';
   ],
   imports: [
     CommonModule,
-    AttendanceManagerRoutingModule
+    AttendanceManagerRoutingModule,
+    MaterialModule
   ]
 })
 export class AttendanceManagerModule { }

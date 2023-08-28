@@ -10,12 +10,14 @@ import { AdminLayoutComponent } from './share/admin-layout/admin-layout.componen
 import { NavbarComponent } from './share/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     InitLayoutComponent,
     AdminLayoutComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

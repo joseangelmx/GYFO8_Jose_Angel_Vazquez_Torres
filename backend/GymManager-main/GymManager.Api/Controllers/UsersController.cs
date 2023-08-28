@@ -16,7 +16,7 @@ namespace GymManager.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -28,6 +28,7 @@ namespace GymManager.Api.Controllers
 
         // GET: api/<UserController>
         [HttpGet]
+        [Authorize]
         public async Task<UserListResponse> Get()
         {
             //return await _userService.GetUsersAsync();
@@ -44,6 +45,7 @@ namespace GymManager.Api.Controllers
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<UserResponse> Get(string id)
         {
             //return await _userService.GetUserAsync(id);
@@ -105,6 +107,7 @@ namespace GymManager.Api.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Put(string id, [FromBody] EditUserDto value)
         {
 
@@ -133,6 +136,7 @@ namespace GymManager.Api.Controllers
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(string id)
         {
 

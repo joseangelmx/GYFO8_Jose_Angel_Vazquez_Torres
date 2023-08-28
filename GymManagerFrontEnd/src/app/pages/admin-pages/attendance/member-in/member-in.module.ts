@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { MemberInRoutingModule } from './member-in-routing.module';
 import { MemberInComponent } from './member-in.component';
+import { MaterialModule } from 'src/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +13,10 @@ import { MemberInComponent } from './member-in.component';
   ],
   imports: [
     CommonModule,
-    MemberInRoutingModule
+    MemberInRoutingModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MemberInModule { }

@@ -1,1 +1,73 @@
-<p>cities works!</p>
+<div class="background">
+    <div class="container py-5">
+        <div class="row text-center text-white">
+            <div class="col-lg-8 mx-auto">
+                <h1 class="display-4">City Management</h1>
+                <p class="lead mb-0">Welcome to the City Management section of Gym Manager! This feature empowers you to effortlessly manage the cities associated with your gym's locations. Whether you're adding new cities to your network or removing outdated ones, this intuitive tool ensures that your gym's information is accurate and up to date.</p>
+                <br>
+                <div class="card border-primary mb-3 center-item" style="max-width: 18rem;">
+                  <div class="card-header">Create new city</div>
+                  <div class="card-body text-primary">
+                    <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
+                      <mat-form-field appearance="outline" class="col-md-12 mb-1">
+                        <mat-label>City Name</mat-label>
+                        <input matInput type="text" formControlName="cityName">
+                      </mat-form-field>
+                      <input type="submit" class="btn btn-primary" [disabled]="cityForm.invalid" value="Register new city">
+                    </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="loading" class="loading-overlay">
+      <div class="loading-spinner"></div>
+    </div>
+    
+
+    <div class="container">
+      <div class="row">
+        <ng-container *ngIf="cities.length > 0 && loading === false; else noRecords">
+          <div class="col-xl-3 col-sm-6 mb-5" *ngFor="let city of cities">
+            <div class="bg-white rounded shadow-sm py-4 px-4 text-center">
+              <i class="fa-solid fa-pen-to-square fa-xl d-flex justify-content-start align-items-start hand-pointer" (click)="editCity(city.id, city.name)"></i>
+              <i class="fa-solid fa-trash fa-xl d-flex justify-content-end align-items-start hand-pointer" (click)="deleteCity(city.id)"></i><br>
+              <img src="https://cdn-icons-png.flaticon.com/512/307/307670.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"><br>
+              <span class="small text-uppercase text-muted">{{ city.name }}</span><br>
+            </div>
+          </div>
+        </ng-container>
+        
+        <ng-template #noRecords>
+          <div class="col-12 text-center">
+            <h1 class="text-white">{{ noRecordsMessage }}</h1>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    
+    
+
+    <div id="myModal" class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit City</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="editCityForm" (ngSubmit)="submitEditCity()">
+              <input style="display: none;" type="number" id="idCityEdit" [(ngModel)]="idCityEdit" formControlName="idCityEdit">
+              <mat-form-field appearance="outline" class="col-md-12 mb-1">
+                <mat-label>City Name</mat-label>
+                <input matInput type="text" id="editCityName" [(ngModel)]="cityName" formControlName="editCityName">
+              </mat-form-field>
+              <input type="submit" class="btn btn-primary" [disabled]="editCityForm.invalid" value="Edit city">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+</div>

@@ -18,7 +18,5 @@ namespace GymManager.ApplicationServices.DTOs.Users
         [StringLength(32)]
         public string PhoneNumber { get; set; }
 
-        [StringLength(100, MinimumLength = 5)]
-        public string Password { get; set; }
     }
 }

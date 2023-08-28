@@ -142,5 +142,32 @@ namespace GymManager.Api.Controllers
                 });
             }
         }
+
+
+        [HttpGet("withoutExit")]
+        public async Task<IActionResult> GetAttendanceWithoutExit()
+        {
+            if (ModelState.IsValid)
+            {
+                var attendancesWithoutExit = await _attendanceService.GetAttendanceWithoutExitAsync();
+                return Ok(new
+                {
+                    HasError = false,
+                    Message = "List of attendances without exit returned",
+                    Model = attendancesWithoutExit,
+                    RequestId = System.Diagnostics.Activity.Current?.Id
+                });
+            }
+            else
+            {
+                return BadRequest(new
+                {
+                    hasError = true,
+                    message = "Bad Request",
+                    model = new { title = "Bad Request", message = "Your request is incorrect, verify it" },
+                    requestId = System.Diagnostics.Activity.Current?.Id
+                });
+            }
+        }
     }
 }

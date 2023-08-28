@@ -13,10 +13,10 @@ formUser!: FormGroup;
 
 defaultFields = {
   email: new FormControl('',[Validators.required,Validators.email]),
-  password: new FormControl('',Validators.required,)
+  password: new FormControl('',[Validators.required,Validators.minLength(6)]), 
 }
 extraFields = {
-phoneNumber: new FormControl('',[Validators.required]),
+phoneNumber: new FormControl('',[Validators.required,Validators.minLength(10)]),
 }
 
 constructor(

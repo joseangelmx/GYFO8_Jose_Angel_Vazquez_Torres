@@ -1,1 +1,112 @@
-<p>membership-types works!</p>
+<div class="background">
+    <div class="container py-5">
+      <div class="row text-center text-white">
+        <div class="col-lg-8 mx-auto">
+          <h1 class="display-4">Membership Types</h1>
+          <p class="lead mb-0">Admin panel for membership management</p>
+          <br>
+          <button type="button" class="btn btn-primary" (click)="newOpenModal()">New Membership Type</button>
+          <br>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="loading" class="loading-overlay">
+      <div class="loading-spinner"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+          <ng-container *ngIf="membershipTypes.length > 0 && loading === false; else noRecords">
+            <div class="col-xl-3 col-sm-6 mb-1" *ngFor="let membershipType of membershipTypes">
+              <div class="bg-white rounded shadow-sm py-4 px-4 text-center">
+                <i class="fa-solid fa-pen-to-square fa-xl d-flex justify-content-start align-items-start hand-pointer" (click)="editMembershipType(membershipType.id)"></i>
+                <i class="fa-solid fa-trash fa-xl d-flex justify-content-end align-items-start hand-pointer" (click)="deleteMembershipType(membershipType.id)"></i><br>
+                <img src="https://ih1.redbubble.net/image.523138995.4723/st,small,845x845-pad,1000x1000,f8f8f8.u2.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"><br>
+                <span class="small text-uppercase text-muted">{{ membershipType.name }}</span><br>
+                
+
+                <span class="small text-muted">Cost <br> {{ membershipType.cost }}</span><br>
+                <span class="small text-muted">Created On <br> {{ extractDateTime(membershipType.createdOn) }}</span><br>
+                <span class="small text-muted">Duration <br> {{ membershipType.duration }}</span>
+              </div>
+            </div>
+          </ng-container>
+          
+          <ng-template #noRecords>
+            <div class="col-12 text-center">
+              <h1 class="text-white">{{ noRecordsMessage }}</h1>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+
+      <div id="newMembershipTypeModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">New Membership Type</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="newCloseModal()"></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="newMembershipTypeForm" (ngSubmit)="addNewMembershipType()">
+                <mat-form-field appearance="outline" class="col-md-12 mb-1">
+                  <mat-label>Membership Type Name</mat-label>
+                  <input matInput type="text" formControlName="newMembershipTypeName">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-12 mb-1">
+                  <mat-label>Cost</mat-label>
+                  <input matInput type="number" formControlName="newMembershipTypeCost">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-12 mb-1">
+                  <mat-label>Duration</mat-label>
+                  <input matInput type="number" formControlName="newMembershipTypeDuration">
+                </mat-form-field>
+                <input type="submit" class="btn btn-primary" [disabled]="newMembershipTypeForm.invalid" value="Register new Membership Type">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="editMembershipTypeModal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Membership Type</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="editCloseModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editMembershipTypeForm" (ngSubmit)="onSubmiteditMembershipType()">
+          <input type="text" id="editMembershipTypeId" [ngModel]="idEditMembership" style="display: none;" formControlName="editMembershipTypeId">
+          <mat-form-field appearance="outline" class="col-md-12 mb-1">
+            <mat-label>Membership Type Name</mat-label>
+            <input matInput type="text" [ngModel]="editMembershipTypeName" formControlName="editMembershipTypeName">
+            <mat-error *ngIf="editMembershipTypeForm.get('editMembershipTypeName')!.invalid && editMembershipTypeForm.get('editMembershipTypeName')!.touched">
+              Membership Type Name is required.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-12 mb-1">
+            <mat-label>Cost</mat-label>
+            <input matInput type="number" formControlName="editMembershipTypeCost" [ngModel]="editMembershipTypeCost" required pattern="^\d+(\.\d{1,2})?$">
+            <mat-error *ngIf="editMembershipTypeForm.get('editMembershipTypeCost')!.invalid && editMembershipTypeForm.get('editMembershipTypeCost')!.touched">
+              Enter a valid number.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-12 mb-1">
+            <mat-label>Duration</mat-label>
+            <input matInput type="number" formControlName="editMembershipTypeDuration" [ngModel]="editMembershipTypeDuration" required
+                   pattern="^[1-9]\d*$" max="48">
+            <mat-error *ngIf="editMembershipTypeForm.get('editMembershipTypeDuration')!.invalid && editMembershipTypeForm.get('editMembershipTypeDuration')!.touched">
+              Enter a valid number greater than zero.
+            </mat-error>
+            <mat-error *ngIf="editMembershipTypeForm.get('editMembershipTypeDuration')!.hasError('max')">
+              Duration must be less than or equal to 48.
+            </mat-error>
+          </mat-form-field>
+          <input type="submit" class="btn btn-primary" [disabled]="editMembershipTypeForm.invalid" value="Save Changes">
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

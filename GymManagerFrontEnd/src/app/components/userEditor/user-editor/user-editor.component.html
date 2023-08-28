@@ -1,0 +1,14 @@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true" id="myModal">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="staticBackdropLabel">Crear Nuevo Usuario</h5>
+      <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close" (click)="onCloseHandled()"></button>
+    </div>
+    <div class="modal-body">
+        <app-login-form [isSignUp]="true" (responseForm)="respForm($event)"></app-login-form>
+    </div>
+  </div>
+</div>
+</div>
